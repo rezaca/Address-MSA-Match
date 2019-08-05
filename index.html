@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+<head>
+	<title>Address - MSA Match Test</title>
+</head>
+<h1>Address/MSA Match</h1>
+<body>
+<form class="pure-form">
+    <div>
+	    <input id="addy" type="text">
+	    <input type="submit">
+    </div>
+</form>
+<p>Your MSA: <span ></span></p>
+
+<script>
+var address = document.getElementById('addy'),
+	apiKey = '85ec89ebe5850ebc0eded84b9c54495d4546704',
+    fields = 'census';
+
+document.querySelector('form.pure-form').addEventListener('submit', function (e){
+
+	e.preventDefault();
+
+	$.get('https://api.geocod.io/v1.3/geocode?q='+ encodeURIComponent(address.value) +'&api_key=' + encodeURIComponent(apiKey) + '&fields=' + encodeURIComponent(fields), 
+
+    function (response) {
+	
+	$("span").html(response.results[0].fields.census.metro_micro_statistical_area.name);
+	});
+})
+</script>
+</body>
+</html>
